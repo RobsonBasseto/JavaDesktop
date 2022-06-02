@@ -21,7 +21,7 @@ public class ConnectionDataBase {
         
         try
         {
-            conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/SistemaAcademico","postgres","unipar");
+            conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/SistemaAcademico","postgres","univel");
         }catch(SQLException e)
         {
             e.printStackTrace();

@@ -18,6 +18,7 @@ public class FrmCurso extends javax.swing.JFrame {
      */
     public FrmCurso() {
         initComponents();
+        DisableText();
     }
 
     /**
@@ -31,10 +32,10 @@ public class FrmCurso extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
+        btnNovo = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtDescricao = new javax.swing.JTextField();
@@ -51,22 +52,27 @@ public class FrmCurso extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Sistema Academico");
 
-        jButton1.setBackground(new java.awt.Color(51, 51, 51));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SistemaAcademico/Images/savedisk_121993.png"))); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnSalvar.setBackground(new java.awt.Color(51, 51, 51));
+        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SistemaAcademico/Images/savedisk_121993.png"))); // NOI18N
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnSalvarActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(51, 51, 51));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SistemaAcademico/Images/edit-a-document-interface-symbol-of-stroke_icon-icons.com_57848.png"))); // NOI18N
+        btnEditar.setBackground(new java.awt.Color(51, 51, 51));
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SistemaAcademico/Images/edit-a-document-interface-symbol-of-stroke_icon-icons.com_57848.png"))); // NOI18N
 
-        jButton3.setBackground(new java.awt.Color(51, 51, 51));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SistemaAcademico/Images/addfileinterfacesymbolofpapersheetwithtextlinesandplussign_79821.png"))); // NOI18N
+        btnNovo.setBackground(new java.awt.Color(51, 51, 51));
+        btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SistemaAcademico/Images/addfileinterfacesymbolofpapersheetwithtextlinesandplussign_79821.png"))); // NOI18N
+        btnNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoActionPerformed(evt);
+            }
+        });
 
-        jButton4.setBackground(new java.awt.Color(51, 51, 51));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SistemaAcademico/Images/biggarbagebin_121980.png"))); // NOI18N
+        btnExcluir.setBackground(new java.awt.Color(51, 51, 51));
+        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SistemaAcademico/Images/biggarbagebin_121980.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -76,13 +82,13 @@ public class FrmCurso extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addGap(43, 43, 43)
-                .addComponent(jButton3)
+                .addComponent(btnNovo)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(btnSalvar)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(btnEditar)
                 .addGap(18, 18, 18)
-                .addComponent(jButton4)
+                .addComponent(btnExcluir)
                 .addContainerGap(241, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -90,11 +96,11 @@ public class FrmCurso extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(45, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20))
         );
 
@@ -162,7 +168,24 @@ public class FrmCurso extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void DisableText()
+    {
+        txtDescricao.disable();
+        txtCarga.disable();
+    }
+    
+    private void EnableText()
+    {
+        txtDescricao.enable();
+        txtCarga.enable();
+    }
+    private void LimparText()
+    {
+        txtDescricao.setText(null);
+        txtCarga.setValue(null);
+
+    }
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
   
         boolean sucesso;
         try
@@ -171,7 +194,7 @@ public class FrmCurso extends javax.swing.JFrame {
             sucesso = set.cadastrarCurso(txtDescricao.getText(),Integer.parseInt(txtCarga.getText()));
             if(sucesso == true){
                 JOptionPane.showMessageDialog(null,"Cadastro feito com sucesso");
-                
+                LimparText();
             }else{
                 JOptionPane.showMessageDialog(null,"Campos não foram preenchidos");
             }
@@ -179,11 +202,17 @@ public class FrmCurso extends javax.swing.JFrame {
         {
             JOptionPane.showMessageDialog(null,"Erro: " + ex);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void txtCargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCargaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCargaActionPerformed
+
+    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
+        EnableText();
+        LimparText();
+        
+    }//GEN-LAST:event_btnNovoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -221,10 +250,10 @@ public class FrmCurso extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnNovo;
+    private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
