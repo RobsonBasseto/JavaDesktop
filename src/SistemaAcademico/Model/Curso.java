@@ -2,6 +2,8 @@ package SistemaAcademico.Model;
 
 import SistemaAcademico.Dao.CursoDAO;
 import SistemaAcademico.Dao.ExceptionDAO;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Curso {
     
@@ -52,5 +54,9 @@ public class Curso {
         this.cargahoraria = cargahoraria;
     }
     
+    public ArrayList<Curso> listarCurso() throws ExceptionDAO 
+    {
+        return new CursoDAO().listarCurso();
+    }
     
 }

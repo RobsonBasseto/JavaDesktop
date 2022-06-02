@@ -2,6 +2,8 @@ package SistemaAcademico.Controller;
 
 import SistemaAcademico.Dao.ExceptionDAO;
 import SistemaAcademico.Model.Curso;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class ControllerCurso {
     
@@ -14,5 +16,10 @@ public class ControllerCurso {
             return true;
         }
         return false;
+    }
+    
+    public ArrayList<Curso> listarCurso() throws ExceptionDAO
+    {
+        return new Curso().listarCurso();
     }
 }

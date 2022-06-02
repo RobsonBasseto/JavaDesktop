@@ -5,7 +5,12 @@
 package SistemaAcademico.View;
 
 import SistemaAcademico.Controller.ControllerCurso;
+import SistemaAcademico.Dao.ExceptionDAO;
+import SistemaAcademico.Model.Curso;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,9 +21,10 @@ public class FrmCurso extends javax.swing.JFrame {
     /**
      * Creates new form FrmCurso
      */
-    public FrmCurso() {
+    public FrmCurso(){
         initComponents();
         DisableText();
+        CarregarList();
     }
 
     /**
@@ -222,6 +228,33 @@ public class FrmCurso extends javax.swing.JFrame {
         txtCarga.setValue(null);
 
     }
+    
+    private void CarregarList()
+    {
+        DefaultTableModel tablemodel = (DefaultTableModel) TableCurso.getModel();
+        tablemodel.setRowCount(0);
+        ControllerCurso get = new ControllerCurso();
+        
+        try
+        {
+            ArrayList<Curso> cursos = get.listarCurso();
+            cursos.forEach((Curso curso)->
+            {
+                tablemodel.addRow(new Object[]{
+                                                curso.getIdcurso(),
+                                                curso.getDescricao(),
+                                                curso.getCargahoraria()});
+                                            
+                        
+            });
+            TableCurso.setModel(tablemodel);
+        }
+        catch(ExceptionDAO e)
+        {
+            JOptionPane.showMessageDialog(null,"Erro ao carregar a tabela: " + e);
+        }
+    }
+    
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
   
         boolean sucesso;
@@ -232,6 +265,7 @@ public class FrmCurso extends javax.swing.JFrame {
             if(sucesso == true){
                 JOptionPane.showMessageDialog(null,"Cadastro feito com sucesso");
                 LimparText();
+                CarregarList();
             }else{
                 JOptionPane.showMessageDialog(null,"Campos não foram preenchidos");
             }
