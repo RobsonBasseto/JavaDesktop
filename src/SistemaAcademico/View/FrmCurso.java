@@ -156,6 +156,11 @@ public class FrmCurso extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        TableCurso.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TableCursoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(TableCurso);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -284,6 +289,15 @@ public class FrmCurso extends javax.swing.JFrame {
         LimparText();
         
     }//GEN-LAST:event_btnNovoActionPerformed
+
+    private void TableCursoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableCursoMouseClicked
+        if(evt.getClickCount() ==2)
+        {
+            Integer idCurso = (Integer) TableCurso.getModel().getValueAt(TableCurso.getSelectedRow(),0);
+            String Descricao = (String) TableCurso.getModel().getValueAt(TableCurso.getSelectedRow(),1);
+            Integer cargahoraria = (Integer) TableCurso.getModel().getValueAt(TableCurso.getSelectedRow(),2);
+        }
+    }//GEN-LAST:event_TableCursoMouseClicked
 
     /**
      * @param args the command line arguments
