@@ -110,4 +110,91 @@ public class CursoDAO {
        
        return cursos;
     }
+    
+    public void alterarCurso(Curso curso) throws ExceptionDAO
+    {
+        String sql = "update Curso set descricao = ?, cargahoraria = ? where idcurso = ?";
+        PreparedStatement pStatement = null;
+        Connection connection = null;
+        
+        
+        try
+        {
+            connection = new ConnectionDataBase().getConnection();
+            pStatement = connection.prepareStatement(sql);
+            pStatement.setString(1, curso.getDescricao());
+            pStatement.setInt(2, curso.getCargahoraria());
+            pStatement.setInt(3, curso.getIdcurso());
+            pStatement.execute();
+        }
+        catch(SQLException e)
+        {
+            throw new ExceptionDAO("Erro ao editar curso: " + e);
+       }
+       finally
+       {
+           try
+           {
+               if(pStatement != null)
+               {
+                    pStatement.close();
+               }
+           }
+           catch(SQLException e)
+           {
+               throw new ExceptionDAO("Erro ao fechar o Statement: " + e);
+           }
+           
+           try
+            {
+                if(connection != null) {connection.close();}
+            }
+            catch(SQLException e)
+            {
+                throw new ExceptionDAO("Erro ao fechar a conexão: " + e);
+            }
+       }
+    }
+    
+    public void deletarCurso(Curso curso) throws ExceptionDAO
+    {
+        String sql = "delete from curso where idcurso = ?";
+        PreparedStatement pStatement = null;
+        Connection connection = null;
+        
+        try
+        {
+            connection = new ConnectionDataBase().getConnection();
+            pStatement = connection.prepareStatement(sql);
+            pStatement.setInt(1, curso.getIdcurso());
+            pStatement.execute();
+        }
+        catch(SQLException e)
+        {
+            throw new ExceptionDAO("Erro ao deletar curso:" + e);
+            
+        }
+        finally
+        {
+            try
+            {
+                if(pStatement != null){pStatement.close();}
+            }
+            catch(SQLException e)
+            {
+                throw new ExceptionDAO("Erro ao fechar o Statement: " + e);
+            }
+            try
+            {
+                if(connection != null) {connection.close();}
+            }
+            catch(SQLException e)
+            {
+                throw new ExceptionDAO("Erro ao fechar a conexão: " + e);
+            }
+        }
+    }
+
 }
+
+

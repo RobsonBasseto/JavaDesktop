@@ -9,6 +9,8 @@ import SistemaAcademico.Dao.ExceptionDAO;
 import SistemaAcademico.Model.Curso;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -18,9 +20,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FrmCurso extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FrmCurso
-     */
+    private Integer idcurso =0;
     public FrmCurso(){
         initComponents();
         DisableText();
@@ -70,6 +70,11 @@ public class FrmCurso extends javax.swing.JFrame {
 
         btnEditar.setBackground(new java.awt.Color(51, 51, 51));
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SistemaAcademico/Images/edit-a-document-interface-symbol-of-stroke_icon-icons.com_57848.png"))); // NOI18N
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnNovo.setBackground(new java.awt.Color(51, 51, 51));
         btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SistemaAcademico/Images/addfileinterfacesymbolofpapersheetwithtextlinesandplussign_79821.png"))); // NOI18N
@@ -81,6 +86,11 @@ public class FrmCurso extends javax.swing.JFrame {
 
         btnExcluir.setBackground(new java.awt.Color(51, 51, 51));
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SistemaAcademico/Images/biggarbagebin_121980.png"))); // NOI18N
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -266,15 +276,26 @@ public class FrmCurso extends javax.swing.JFrame {
         try
         {
             ControllerCurso set = new ControllerCurso();
+            
+            if(this.idcurso == 0)
+            {
             sucesso = set.cadastrarCurso(txtDescricao.getText(),Integer.parseInt(txtCarga.getText()));
-            if(sucesso == true){
+            }else
+            {
+            sucesso = set.alterarCurso(this.idcurso,txtDescricao.getText(),Integer.parseInt(txtCarga.getText()));
+            }
+                if(sucesso == true)
+                {
                 JOptionPane.showMessageDialog(null,"Cadastro feito com sucesso");
                 LimparText();
                 CarregarList();
-            }else{
+                }
+                else
+                {
                 JOptionPane.showMessageDialog(null,"Campos não foram preenchidos");
-            }
-        }catch(Exception ex)
+                }
+        }
+        catch(Exception ex)
         {
             JOptionPane.showMessageDialog(null,"Erro: " + ex);
         }
@@ -293,11 +314,43 @@ public class FrmCurso extends javax.swing.JFrame {
     private void TableCursoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableCursoMouseClicked
         if(evt.getClickCount() ==2)
         {
-            Integer idCurso = (Integer) TableCurso.getModel().getValueAt(TableCurso.getSelectedRow(),0);
+            Integer IDCurso = (Integer) TableCurso.getModel().getValueAt(TableCurso.getSelectedRow(),0);
             String Descricao = (String) TableCurso.getModel().getValueAt(TableCurso.getSelectedRow(),1);
             Integer cargahoraria = (Integer) TableCurso.getModel().getValueAt(TableCurso.getSelectedRow(),2);
+            
+            this.txtDescricao.setText(Descricao);
+            this.txtCarga.setValue(cargahoraria);
+            this.idcurso = IDCurso;
         }
     }//GEN-LAST:event_TableCursoMouseClicked
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+            EnableText();
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        boolean sucesso;
+        
+        ControllerCurso set = new ControllerCurso();
+        try 
+        {
+            sucesso = set.deletarCurso(this.idcurso);
+            if(sucesso)
+            {
+                JOptionPane.showMessageDialog(null,"Curso removido com sucesso");
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null,"Erro ao remover curso");
+            }
+        } 
+        catch (ExceptionDAO ex) 
+        {
+            Logger.getLogger(FrmCurso.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        CarregarList();
+        LimparText();
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
     /**
      * @param args the command line arguments

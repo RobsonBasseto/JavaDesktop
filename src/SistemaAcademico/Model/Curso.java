@@ -59,4 +59,13 @@ public class Curso {
         return new CursoDAO().listarCurso();
     }
     
+    public void alterarCurso(Curso curso) throws ExceptionDAO
+    {
+        new CursoDAO().alterarCurso(curso);
+    }
+    
+    public void deletarCurso(Curso curso) throws ExceptionDAO
+    {
+        new CursoDAO().deletarCurso(curso);
+    }
 }
